@@ -1,6 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <form method="post" novalidate>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" value="Update" class="btn btn-primary">Login</button>
-      </form>
-      
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" value="Update" class="btn btn-primary">Login</button>
+  </form>
+  <a href="{% url 'users:register' %}" class="btn btn-primary">Click here to register!</a>
+{% endblock %}

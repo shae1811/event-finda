@@ -1,16 +1,7 @@
 
-{% load static %}
+{% load staticfiles %}
 
 <!doctype html>
-
-<p><a href="{% url 'register' %}">register</a></p>
-{% if user.is_authenticated %}
-    <p>Hi {{ user.username }}</p>
-    <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-    <p><a href="{% url 'login' %}">login</a></p>
-{% endif %}
-
 
 <html lang="en">
     <head>
