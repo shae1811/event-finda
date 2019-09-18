@@ -5,5 +5,8 @@
         {% for category in event.category.all %}
            <p>{{ category.name }}</p>
        {% endfor %}
+       <p>{{ event.start_time }}</p>
+        <p>{{ event.end_time }}</p>
+        <p>{{ event.location }}</p>
     </a>
 </div>
