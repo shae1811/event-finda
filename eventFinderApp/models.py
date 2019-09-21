@@ -1,5 +1,5 @@
 from django.db import models
-
+# from django.conf import settings
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
@@ -8,6 +8,7 @@ class Event(models.Model):
     start_time = models.DateTimeField('start time and date')
     end_time = models.DateTimeField('end time and date')
     category = models.ManyToManyField('Category', related_name='events')
+    # host = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title
