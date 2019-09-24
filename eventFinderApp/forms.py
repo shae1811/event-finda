@@ -12,5 +12,5 @@ class EventForm(ModelForm):
             'venue', 
             'start_time',
             'end_time',
-            'category' 
+            'category'
             ]
