@@ -1,16 +1,23 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, SplitDateTimeField
+from django.contrib.admin import widgets
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
-from .models import Event, Category
+from .models import Event, Category, Account
 
 class EventForm(ModelForm):
-     class Meta:
+    start_time = SplitDateTimeField(widget=widgets.AdminSplitDateTime())
+    end_time = SplitDateTimeField(widget=widgets.AdminSplitDateTime())
+
+    class Meta:
         model = Event
+        fields = ['host', 'title','location','venue','start_time','end_time','category']
+        widgets = {'start_time': widgets.AdminSplitDateTime, 'end_time': widgets.AdminSplitDateTime,}
+
+class AccountForm(ModelForm):
+    class Meta:
+        model = Account
         fields = [
-            'title', 
-            'location', 
-            'venue', 
-            'start_time',
-            'end_time',
-            'category'
-            ]
+            'first_name',
+            'surname',
+            'email'
+        ]

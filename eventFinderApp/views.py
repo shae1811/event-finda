@@ -1,10 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views import generic
-from django.shortcuts import render
-from .models import Event
-from .forms import EventForm
-
+from django.views import generic, View
+from django.shortcuts import render, redirect
+from .models import Event, Account, Category
+from .forms import EventForm, AccountForm
+from users.forms import CustomUserChangeForm
+from users.models import CustomUser
 
 class IndexView(generic.ListView):
     template_name = 'eventFinderApp/index.html'
@@ -21,10 +22,19 @@ class EventView(generic.DetailView):
 
 
 def account(request):
-    return render(request, 'eventFinderApp/account.html')
+    events_list = Event.objects.filter(host=request.user)
+    if request.method == 'POST':
+        print(request.POST)
+        user_form = CustomUserChangeForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+    else:
+        user_form = CustomUserChangeForm(instance=request.user)
+    context = {'events_list': events_list, 'form': user_form}
+    template_name = 'eventFinderApp/account.html'
+    return render(request, template_name, context)
 
-
-# the fucntional view for add event
+# the functional view for add event
 def addevent(request):
 
     # if this is a POST request we need to process the form data
