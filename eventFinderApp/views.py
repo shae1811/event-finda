@@ -6,6 +6,7 @@ from .models import Event, Account, Category
 from .forms import EventForm, AccountForm
 from users.forms import CustomUserChangeForm
 from users.models import CustomUser
+from django.contrib.auth.decorators import login_required
 
 class IndexView(generic.ListView):
     template_name = 'eventFinderApp/index.html'
@@ -20,7 +21,7 @@ class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
 
-
+@login_required(login_url='login')
 def account(request):
     events_list = Event.objects.filter(host=request.user)
     if request.method == 'POST':
@@ -135,3 +136,9 @@ class AddEventCreateView(generic.CreateView):
     success_url = reverse_lazy('eventFinderApp:index')
     # we have to use reverse_lazy so that urls.py can load our class
     # and not get stuck in a recursive loop 
+
+class EditEventView(generic.UpdateView):
+    model = Event
+    form_class = EventForm
+    success_url = reverse_lazy('eventFinderApp:account')
+    template_name = 'eventFinderApp/editevent.html'

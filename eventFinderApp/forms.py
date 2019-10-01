@@ -12,6 +12,7 @@ class EventForm(ModelForm):
         model = Event
         fields = ['host', 'title','location','venue','start_time','end_time','category']
         widgets = {'start_time': widgets.AdminSplitDateTime, 'end_time': widgets.AdminSplitDateTime,}
+        exclude = ['host']
 
 class AccountForm(ModelForm):
     class Meta:

@@ -2,8 +2,20 @@
 
 {% block content %}
 
-<p>Hi, {{ user.first_name }}!</p>
+<H2>My Account</H2>
 
-<p>Here's a list of your events:</p>
+<p>Username: {{ user.username }}</p>
+<p>First Name: {{ user.first_name }}</p>
+<p>Last Name: {{ user.last_name }}</p>
+<p>Email: {{ user.email }}</p>
+
+<H2>My Events</H2>
+{% if events_list %}
+{% for event in events_list %}
+    {% include "./detailsBox.html" with event=event %}
+{% endfor %}
+{% else %}
+<p>You're not hosting any events.</p>
+{% endif %}
 
 {% endblock %}

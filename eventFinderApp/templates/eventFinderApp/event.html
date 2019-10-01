@@ -4,13 +4,26 @@
 
 <h2>{{ event.title }}</h2>
 
-<p>{{ event.host.username }}</p>
-<p>{{ event.location }}</p>
+<p>Event Host: {{ event.host.username }}</p>
+
 <p>Starts at: {{ event.start_time }}</p>
 <p>Ends at: {{ event.end_time }}</p>
 <p>Venue: {{ event.venue }}</p>
+<p>Location: {{ event.location }}</p>
 {% for category in event.category.all %}
 <p>Categories: {{ category.name }}</p>
 {% endfor %}
 
+
+{% if user.is_authenticated %}
+   {% if user.pk == event.host.pk %}
+       <a href="{% url 'eventFinderApp:editevent' event.id %}"><button id="editevent">+ Edit Event</button></a>
+   {% else %}
+       <p>Sorry, you do not have access to edit this Event. Please contact {{event.host.username}} </p>
+       {% endif %}
+{% else %}
+   <p><a href="{% url 'login' %}">Login to edit this event</a></p>
+{% endif %}
+
 {% endblock %}
+
