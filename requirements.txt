@@ -32,3 +32,9 @@ texttable==0.9.1
 urllib3==1.24.3
 wcwidth==0.1.7
 websocket-client==0.56.0
+django==2.2
+psycopg2==2.8.3
+djangorestframework==3.10.3
+django-storages==1.7
+boto3==1.9
+django-crispy-forms==1.7.2
